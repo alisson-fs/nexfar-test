@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,8 +15,16 @@ import br.alisson.nexfartest.model.FilterRequest;
 import br.alisson.nexfartest.model.Pedido;
 
 @Repository
-public interface PedidoRepository extends MongoRepository<Pedido, Integer> {
-	default List<Pedido> getPedidos(List<FilterRequest> filters) {
+public class PedidoRepository {
+
+	private final MongoTemplate mongoTemplate;
+
+	@Autowired
+	public PedidoRepository(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+
+	public List<Pedido> getPedidos(List<FilterRequest> filters) {
 		Query query = new Query();
 
 		for (FilterRequest filter : filters) {
@@ -45,6 +54,6 @@ public interface PedidoRepository extends MongoRepository<Pedido, Integer> {
 			}
 			}
 		}
-		return List.of();
+		return mongoTemplate.find(query, Pedido.class);
 	}
 }
