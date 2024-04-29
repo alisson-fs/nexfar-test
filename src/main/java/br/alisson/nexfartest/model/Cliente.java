@@ -1,5 +1,8 @@
 package br.alisson.nexfartest.model;
 
+import lombok.Getter;
+
+@Getter
 public class Cliente {
 	private Integer id;
 	private String name;

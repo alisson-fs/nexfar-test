@@ -1,7 +1,10 @@
 package br.alisson.nexfartest.model;
 
+import lombok.Getter;
+
 import org.bson.types.ObjectId;
 
+@Getter
 public class Produto {
 	private ObjectId id;
 	private String sku;

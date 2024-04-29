@@ -1,5 +1,8 @@
 package br.alisson.nexfartest.model;
 
+import lombok.Getter;
+
+@Getter
 public class Item {
 	private String branchId;
 	private String warehouseId;

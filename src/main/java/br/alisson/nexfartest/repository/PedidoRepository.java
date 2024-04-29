@@ -1,15 +1,18 @@
 package br.alisson.nexfartest.repository;
 
+import static br.alisson.nexfartest.util.RelatorioUtils.colunasPedidosDetalhado;
+import static br.alisson.nexfartest.util.RelatorioUtils.colunasPedidosResumido;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import br.alisson.nexfartest.model.FilterRequest;
 import br.alisson.nexfartest.model.Pedido;
@@ -24,10 +27,16 @@ public class PedidoRepository {
 		this.mongoTemplate = mongoTemplate;
 	}
 
-	public List<Pedido> getPedidos(List<FilterRequest> filters) {
+	public List<Pedido> getPedidos(String tipoRelatorio, List<FilterRequest> filters) {
 		Query query = new Query();
 
-		for (FilterRequest filter : filters) {
+		if (Objects.equals(tipoRelatorio, "ORDER_SIMPLE")) {
+			query.fields().include(colunasPedidosResumido);
+		} else if (Objects.equals(tipoRelatorio, "ORDER_DETAILED")) {
+			query.fields().include(colunasPedidosDetalhado);
+		}
+
+		filters.forEach(filter -> {
 			String key = filter.getKey();
 			String operation = filter.getOperation();
 			String value1 = filter.getValue1();
@@ -53,7 +62,8 @@ public class PedidoRepository {
 				}
 			}
 			}
-		}
+		});
+
 		return mongoTemplate.find(query, Pedido.class);
 	}
 }
