@@ -54,10 +54,10 @@ public class PedidoRepository {
 					}
 				}
 				case "netTotal" -> {
-					if ("gte".equals(operation)) {
-						query.addCriteria(Criteria.where(key).gte(value1));
-					} else {
-						query.addCriteria(Criteria.where(key).lte(value1));
+					if ("GTE".equals(operation)) {
+						query.addCriteria(Criteria.where(key).gte(Double.parseDouble(value1)));
+					} else if ("LTE".equals(operation)) {
+						query.addCriteria(Criteria.where(key).lte(Double.parseDouble(value1)));
 					}
 				}
 			}

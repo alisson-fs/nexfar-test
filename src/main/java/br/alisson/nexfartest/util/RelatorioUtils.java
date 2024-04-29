@@ -4,8 +4,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -82,7 +80,7 @@ public class RelatorioUtils {
 	}
 
 	public static void exportarParaCSV(String tipoRelatorio, List<Pedido> pedidos) {
-		String nomeArquivo = geraNomeRelatorio(tipoRelatorio) + ".csv";
+		String nomeArquivo = getNomeRelatorio(tipoRelatorio) + ".csv";
 		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
 
 		switch (tipoRelatorio) {
@@ -100,7 +98,7 @@ public class RelatorioUtils {
 	}
 
 	public static void exportarParaXLS(String tipoRelatorio, List<Pedido> pedidos) {
-		String nomeArquivo = geraNomeRelatorio(tipoRelatorio) + ".xls";
+		String nomeArquivo = getNomeRelatorio(tipoRelatorio) + ".xls";
 		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
 
 		switch (tipoRelatorio) {
@@ -127,9 +125,12 @@ public class RelatorioUtils {
 		}
 	}
 
-	public static String geraNomeRelatorio(String tipoRelatorio) {
-		LocalDateTime agora = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		return agora.format(formatter) + tipoRelatorio;
+	public static String getNomeRelatorio(String tipoRelatorio) {
+		String nome = "";
+		switch (tipoRelatorio) {
+			case "ORDER_SIMPLE" -> nome = "PedidoResumido";
+			case "ORDER_DETAILED" -> nome = "PedidoDetalhado";
+		}
+		return nome;
 	}
 }
