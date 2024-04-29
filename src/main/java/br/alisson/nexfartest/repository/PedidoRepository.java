@@ -2,13 +2,11 @@ package br.alisson.nexfartest.repository;
 
 import static br.alisson.nexfartest.util.RelatorioUtils.colunasPedidosDetalhado;
 import static br.alisson.nexfartest.util.RelatorioUtils.colunasPedidosResumido;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

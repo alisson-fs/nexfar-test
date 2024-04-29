@@ -4,17 +4,16 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
 import com.opencsv.CSVWriter;
-
 import br.alisson.nexfartest.model.Pedido;
 
 public class RelatorioUtils {
@@ -83,7 +82,7 @@ public class RelatorioUtils {
 	}
 
 	public static void exportarParaCSV(String tipoRelatorio, List<Pedido> pedidos) {
-		String nomeArquivo = "arquivoCSV.csv";
+		String nomeArquivo = geraNomeRelatorio(tipoRelatorio) + ".csv";
 		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
 
 		switch (tipoRelatorio) {
@@ -101,7 +100,7 @@ public class RelatorioUtils {
 	}
 
 	public static void exportarParaXLS(String tipoRelatorio, List<Pedido> pedidos) {
-		String nomeArquivo = "arquivoXLS.xls";
+		String nomeArquivo = geraNomeRelatorio(tipoRelatorio) + ".xls";
 		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
 
 		switch (tipoRelatorio) {
@@ -126,5 +125,11 @@ public class RelatorioUtils {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public static String geraNomeRelatorio(String tipoRelatorio) {
+		LocalDateTime agora = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		return agora.format(formatter) + tipoRelatorio;
 	}
 }
