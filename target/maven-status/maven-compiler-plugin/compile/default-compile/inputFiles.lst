@@ -1,2 +1,12 @@
-/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/repository/RelatorioRepository.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/Cliente.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/service/PedidoService.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/RelatorioRequest.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/External.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/Item.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/FilterRequest.java
 /Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/NexfarTestApplication.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/Pedido.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/repository/PedidoRepository.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/util/RelatorioUtils.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/model/Produto.java
+/Users/alisson/Documents/nexfar-test/src/main/java/br/alisson/nexfartest/controller/PedidoController.java

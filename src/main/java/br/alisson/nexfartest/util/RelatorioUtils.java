@@ -1,9 +1,19 @@
 package br.alisson.nexfartest.util;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import com.opencsv.CSVWriter;
 
 import br.alisson.nexfartest.model.Pedido;
 
@@ -27,8 +37,8 @@ public class RelatorioUtils {
 			"items.product.sku",
 			"items.product.name",
 			"items.quantity",
-			"items.finalPrice.price",
-			"items.finalPrice.finalPrice"
+			"items.price",
+			"items.finalPrice"
 	};
 
 	public static List<String[]> convertPedidosToLines(String tipoRelatorio, List<Pedido> pedidos) {
@@ -70,5 +80,51 @@ public class RelatorioUtils {
 			}
 		});
 		return lines;
+	}
+
+	public static void exportarParaCSV(String tipoRelatorio, List<Pedido> pedidos) {
+		String nomeArquivo = "arquivoCSV.csv";
+		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
+
+		switch (tipoRelatorio) {
+			case "ORDER_SIMPLE" -> linhas.add(0, colunasPedidosResumido);
+			case "ORDER_DETAILED" -> linhas.add(0, colunasPedidosDetalhado);
+		}
+
+		try (CSVWriter writer = new CSVWriter(new FileWriter(nomeArquivo))) {
+			for (String[] linha : linhas) {
+				writer.writeNext(linha);
+			}
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void exportarParaXLS(String tipoRelatorio, List<Pedido> pedidos) {
+		String nomeArquivo = "arquivoXLS.xls";
+		List<String[]> linhas = RelatorioUtils.convertPedidosToLines(tipoRelatorio, pedidos);
+
+		switch (tipoRelatorio) {
+			case "ORDER_SIMPLE" -> linhas.add(0, colunasPedidosResumido);
+			case "ORDER_DETAILED" -> linhas.add(0, colunasPedidosDetalhado);
+		}
+
+		try (Workbook workbook = new HSSFWorkbook()) {
+			Sheet sheet = workbook.createSheet("Pedidos");
+
+			int nRow = 0;
+			for (String[] linha : linhas) {
+				Row row = sheet.createRow(nRow++);
+				int nCol = 0;
+				for (String dado : linha) {
+					row.createCell(nCol++).setCellValue(dado);
+				}
+			}
+
+			FileOutputStream fileOut = new FileOutputStream(nomeArquivo);
+			workbook.write(fileOut);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

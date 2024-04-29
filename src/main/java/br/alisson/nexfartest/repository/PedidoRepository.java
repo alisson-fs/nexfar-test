@@ -43,24 +43,25 @@ public class PedidoRepository {
 			String value2 = filter.getValue2();
 
 			switch (key) {
-			case "cnpj", "status" -> query.addCriteria(Criteria.where(key).is(value1));
-			case "createdAt" -> {
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				try {
-					Date date1 = formatter.parse(value1);
-					Date date2 = formatter.parse(value2);
-					query.addCriteria(Criteria.where(key).gte(date1).lte(date2));
-				} catch (ParseException e) {
-					System.out.println(e.getMessage());
+				case "cnpj" -> query.addCriteria(Criteria.where("client." + key).is(value1));
+				case "status" -> query.addCriteria(Criteria.where(key).is(value1));
+				case "createdAt" -> {
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+					try {
+						Date date1 = formatter.parse(value1);
+						Date date2 = formatter.parse(value2);
+						query.addCriteria(Criteria.where(key).gte(date1).lte(date2));
+					} catch (ParseException e) {
+						System.out.println(e.getMessage());
+					}
 				}
-			}
-			case "netTotal" -> {
-				if ("gte".equals(operation)) {
-					query.addCriteria(Criteria.where(key).gte(value1));
-				} else {
-					query.addCriteria(Criteria.where(key).lte(value1));
+				case "netTotal" -> {
+					if ("gte".equals(operation)) {
+						query.addCriteria(Criteria.where(key).gte(value1));
+					} else {
+						query.addCriteria(Criteria.where(key).lte(value1));
+					}
 				}
-			}
 			}
 		});
 

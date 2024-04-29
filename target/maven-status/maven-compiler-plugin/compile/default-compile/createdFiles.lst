@@ -1,2 +1,12 @@
-br/alisson/nexfartest/repository/RelatorioRepository.class
+br/alisson/nexfartest/controller/PedidoController.class
+br/alisson/nexfartest/repository/PedidoRepository.class
+br/alisson/nexfartest/model/Produto.class
+br/alisson/nexfartest/service/PedidoService.class
+br/alisson/nexfartest/model/Cliente.class
+br/alisson/nexfartest/model/FilterRequest.class
+br/alisson/nexfartest/util/RelatorioUtils.class
+br/alisson/nexfartest/model/Pedido.class
 br/alisson/nexfartest/NexfarTestApplication.class
+br/alisson/nexfartest/model/Item.class
+br/alisson/nexfartest/model/RelatorioRequest.class
+br/alisson/nexfartest/model/External.class
