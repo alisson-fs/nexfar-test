@@ -63,7 +63,7 @@ Payload:
 ```json
 {
     "key" : "ORDER_SIMPLE",
-    "format" : "XLS", //ou CSV
+    "format" : "XLS",
     "filters": [
         {
             "key" : "cnpj",
