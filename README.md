@@ -68,7 +68,7 @@ Payload:
         {
             "key" : "cnpj",
             "operation" : "EQ",
-            "value1" : "2021-09-30 20:00",
+            "value1" : "1111111111",
         },
         {
             "key" : "createdAt",
